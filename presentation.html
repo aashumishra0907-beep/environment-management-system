@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Environment Management System - Presentation</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .presentation {
+            width: 100%;
+            max-width: 1000px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .slide {
+            display: none;
+            padding: 60px;
+            min-height: 600px;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .slide h1 {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .slide h2 {
+            font-size: 2.5em;
+            color: #667eea;
+            margin-bottom: 30px;
+        }
+        
+        .slide h3 {
+            font-size: 1.8em;
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .slide p {
+            font-size: 1.2em;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        .slide ul {
+            font-size: 1.1em;
+            color: #333;
+            margin-left: 30px;
+            line-height: 2;
+        }
+        
+        .slide li {
+            margin-bottom: 10px;
+        }
+        
+        .slide-title {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 60px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .slide-title h1 {
+            font-size: 4em;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .slide-title p {
+            font-size: 1.5em;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .slide-title .subtitle {
+            font-size: 1.3em;
+            margin-top: 30px;
+            opacity: 0.9;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            background: #f8f9fa;
+            border-top: 2px solid #e0e0e0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        button {
+            padding: 12px 30px;
+            font-size: 1em;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .slide-counter {
+            font-size: 1.1em;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 20px;
+            border-left: 5px solid #ffc107;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .feature-box {
+            background: #f0f4ff;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-card .number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .stat-card .label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .speaker-info {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .speaker-info strong {
+            color: #667eea;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        
+        .column {
+            padding: 20px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 40px;
+            font-size: 1.2em;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+                min-height: auto;
+            }
+            
+            .controls {
+                padding: 15px 30px;
+            }
+            
+            .slide h1 {
+                font-size: 2em;
+            }
+            
+            .slide h2 {
+                font-size: 1.8em;
+            }
+            
+            .slide h3 {
+                font-size: 1.3em;
+            }
+            
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Title -->
+        <div class="slide active slide-title">
+            <h1>🌍 Environment Management System</h1>
+            <p>Building a Sustainable Future Together</p>
+            <div class="subtitle">A Comprehensive Solution for Environmental Sustainability</div>
+        </div>
+
+        <!-- Slide 2: The Problem -->
+        <div class="slide">
+            <h2>The Problem We're Solving</h2>
+            <div class="speaker-info">
+                <strong>Speaker: Environmental Consultant</strong>
+            </div>
+            <ul>
+                <li>📊 Lack of centralized tracking systems for environmental impact</li>
+                <li>⚠️ Inefficient resource utilization (energy, water, waste)</li>
+                <li>📉 No data-driven decision making on sustainability</li>
+                <li>❌ Difficulty in compliance and regulatory reporting</li>
+                <li>🔍 Missing visibility into departmental consumption patterns</li>
+                <li>💬 Poor communication on environmental progress</li>
+            </ul>
+            <div class="highlight">
+                <strong>Impact:</strong> Organizations lose money, waste resources, and struggle to meet sustainability goals
+            </div>
+        </div>
+
+        <!-- Slide 3: Our Solution -->
+        <div class="slide">
+            <h2>Our Solution: Environment Management System</h2>
+            <div class="speaker-info">
+                <strong>Speaker: Project Lead</strong>
+            </div>
+            <p>A comprehensive platform that helps organizations:</p>
+            <div class="feature-box">
+                <h3>✓ Monitor in Real-Time</h3>
+                <p>Track energy usage, water consumption, waste generation, and carbon footprint continuously</p>
+            </div>
+            <div class="feature-box">
+                <h3>✓ Analyze & Report</h3>
+                <p>Generate automated reports with compliance data and sustainability metrics</p>
+            </div>
+            <div class="feature-box">
+                <h3>✓ Make Data-Driven Decisions</h3>
+                <p>Use dashboards and analytics to identify optimization opportunities</p>
+            </div>
+            <div class="feature-box">
+                <h3>✓ Engage Teams</h3>
+                <p>Collaborate on sustainability initiatives and track progress together</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Key Features -->
+        <div class="slide">
+            <h2>Key Features</h2>
+            <div class="two-column">
+                <div class="column">
+                    <h3>📊 Real-time Monitoring</h3>
+                    <ul>
+                        <li>Live energy tracking</li>
+                        <li>Water usage metrics</li>
+                        <li>Waste management</li>
+                        <li>Carbon footprint calculation</li>
+                        <li>Automated alerts</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h3>📈 Analytics & Insights</h3>
+                    <ul>
+                        <li>Interactive dashboards</li>
+                        <li>Trend analysis</li>
+                        <li>Department breakdown</li>
+                        <li>Historical comparisons</li>
+                        <li>Predictive analytics</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="two-column">
+                <div class="column">
+                    <h3>📋 Reporting & Compliance</h3>
+                    <ul>
+                        <li>Automated reports</li>
+                        <li>Regulatory compliance</li>
+                        <li>Certifications</li>
+                        <li>Export capabilities</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h3>👥 Team Collaboration</h3>
+                    <ul>
+                        <li>Task assignments</li>
+                        <li>Progress tracking</li>
+                        <li>Notifications</li>
+                        <li>Document sharing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Dashboard Demo -->
+        <div class="slide">
+            <h2>Interactive Dashboard Overview</h2>
+            <div class="speaker-info">
+                <strong>Speaker: Technical Expert</strong>
+            </div>
+            <p><strong>Main Metrics Display:</strong></p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="number">1,250</div>
+                    <div class="label">Current Energy Usage (kWh)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">4,800</div>
+                    <div class="label">Water Consumption (Gallons)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">125</div>
+                    <div class="label">Waste Generated (Tons)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">850</div>
+                    <div class="label">Carbon Emissions (CO₂ tons)</div>
+                </div>
+            </div>
+            <p><strong>Features:</strong></p>
+            <ul>
+                <li>🔴 Color-coded alerts for threshold breaches</li>
+                <li>📊 Interactive charts for trend analysis</li>
+                <li>🏢 Department-wise consumption breakdown</li>
+                <li>⚡ Real-time updates every minute</li>
+            </ul>
+        </div>
+
+        <!-- Slide 6: Sustainability Tips -->
+        <div class="slide">
+            <h2>How to Keep Things Neat & Clean</h2>
+            <div class="speaker-info">
+                <strong>Speaker: Environmental Consultant</strong>
+            </div>
+            <div class="feature-box">
+                <h3>🔍 Regular Monitoring</h3>
+                <p>Check your dashboard daily, review weekly summaries, and set conservation goals consistently</p>
+            </div>
+            <div class="feature-box">
+                <h3>♻️ Waste Management</h3>
+                <p>Segregate waste at source, recycle properly, compost organic waste, and dispose hazardous materials safely</p>
+            </div>
+            <div class="feature-box">
+                <h3>⚡ Energy Conservation</h3>
+                <p>Turn off lights in unused areas, use efficient appliances, optimize HVAC, and maximize natural lighting</p>
+            </div>
+            <div class="feature-box">
+                <h3>💧 Water Conservation</h3>
+                <p>Fix leaks immediately, install water-efficient fixtures, collect rainwater, and monitor patterns</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: More Suggestions -->
+        <div class="slide">
+            <h2>Best Practices for Cleanliness</h2>
+            <div class="feature-box">
+                <h3>🧹 Clean Workspace Maintenance</h3>
+                <ul>
+                    <li>Keep work areas organized and clutter-free</li>
+                    <li>Use eco-friendly, biodegradable cleaning products</li>
+                    <li>Reduce paper usage through digital documentation</li>
+                    <li>Implement proper storage systems</li>
+                </ul>
+            </div>
+            <div class="feature-box">
+                <h3>👥 Team Engagement</h3>
+                <ul>
+                    <li>Create awareness programs about sustainability</li>
+                    <li>Set team and departmental sustainability goals</li>
+                    <li>Recognize and celebrate green initiatives</li>
+                    <li>Share best practices across teams</li>
+                </ul>
+            </div>
+            <div class="feature-box">
+                <h3>📅 Regular Audits</h3>
+                <ul>
+                    <li>Conduct monthly environmental audits</li>
+                    <li>Review consumption reports quarterly</li>
+                    <li>Update targets based on progress</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 8: Impact & Results -->
+        <div class="slide">
+            <h2>Proven Results & Impact</h2>
+            <div class="speaker-info">
+                <strong>Speaker: Project Lead</strong>
+            </div>
+            <p><strong>Organizations using our system have achieved:</strong></p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="number">25%</div>
+                    <div class="label">Energy Reduction</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">30%</div>
+                    <div class="label">Water Savings</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">40%</div>
+                    <div class="label">Waste Reduction</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">100%</div>
+                    <div class="label">Transparency</div>
+                </div>
+            </div>
+            <div class="highlight">
+                <strong>Additional Benefits:</strong> Cost savings, improved compliance, enhanced brand reputation, and a sustainable company culture
+            </div>
+        </div>
+
+        <!-- Slide 9: Call to Action -->
+        <div class="slide slide-title">
+            <h2 style="color: white; margin-bottom: 30px;">Join Us in Building a Sustainable Future</h2>
+            <p style="font-size: 1.3em; margin-bottom: 30px;">Our Environment Management System offers:</p>
+            <ul style="text-align: left; display: inline-block; color: white; font-size: 1.2em;">
+                <li>✅ Easy Implementation</li>
+                <li>✅ Scalable for Any Organization</li>
+                <li>✅ Cost-Effective Solutions</li>
+                <li>✅ Cloud-Based & Secure</li>
+                <li>✅ 24/7 Expert Support</li>
+            </ul>
+            <p style="margin-top: 40px; font-size: 1.2em;">
+                <strong>Let's work together to create a cleaner, greener world! 🌱</strong>
+            </p>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+            <span class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">9</span></span>
+            <button id="nextBtn" onclick="changeSlide(1)">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = document.querySelectorAll('.slide').length;
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            
+            if (n > totalSlides) {
+                currentSlide = totalSlides;
+            }
+            if (n < 1) {
+                currentSlide = 1;
+            }
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = currentSlide;
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // Initialize
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
